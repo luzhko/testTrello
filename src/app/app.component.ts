@@ -20,12 +20,6 @@ export class AppComponent implements OnInit {
     name: '',
     status: ''
   };
-  formValue = {
-    id: null,
-    name: null,
-    status: null,
-    description: null,
-  };
   status = {
     toDoTask : 0,
     doingTask : 1,
@@ -68,9 +62,9 @@ export class AppComponent implements OnInit {
 
   addTask (): void {
     if (this.valForm.valid) {
-      this.closeModal();
       this.valForm.value['status'] = Number(this.valForm.value['status']);
       this.localStorageService.setTask(this.valForm.value);
+      this.closeModal();
       this.updateTasks();
     }
   }
@@ -82,12 +76,12 @@ export class AppComponent implements OnInit {
   }
 
   changeTask (id: number, status: number): void {
-    // if (this.valForm.valid) {
+    if (this.valForm.valid) {
       this.valForm.value['status'] = Number(this.valForm.value['status']);
       this.localStorageService.editTask(id, status , this.valForm.value);
       this.closeModal();
       this.updateTasks();
-    // }
+    }
   }
 
   openModal (): void {
@@ -108,14 +102,18 @@ export class AppComponent implements OnInit {
       return item.id === id;
     });
 
+    this.valForm.setValue({
+      name: this.editTaskData[0].name,
+      description: this.editTaskData[0].description,
+      status: String(this.editTaskData[0].status)
+    });
+
     this.openModal();
   }
 
   private clearValue () {
-    for (let item in this.formValue) {
-      this.formValue[item] = null;
-    }
     this.editTaskData = false;
+    this.valForm.reset();
   }
 
 

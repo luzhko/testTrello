@@ -53,37 +53,27 @@
         <div class="modal__body">
           <div class="form-group">
             <label >Name task *
-              <input *ngIf="!editTaskData; else nameEdit" name="name" type="text" class="form-control" formControlName="name"  [(ngModel)]="formValue.name" >
-
-              <ng-template #nameEdit>
-                <input name="name" type="text" class="form-control" formControlName="name" [value]="editTaskData[0].name">
-              </ng-template>
-
+                <input name="name" type="text" class="form-control" formControlName="name">
             </label>
           </div>
           <div class="form-group">
             <label>Description task
-              <textarea *ngIf="!editTaskData; else descriptionEdit" name="description" class="form-control" rows="4" formControlName="description" [(ngModel)]="formValue.description"></textarea>
-
-              <ng-template #descriptionEdit>
-                <textarea  name="description" class="form-control" rows="4" formControlName="description" [value]="editTaskData[0].description"></textarea>
-              </ng-template>
-
+                <textarea  name="description" class="form-control" rows="4" formControlName="description"></textarea>
             </label>
           </div>
           <div class="form-group">
             <label for="status">Status *</label>
-            <select id="status" name="status" class="form-control" formControlName="status">
-              <option [selected]="editTaskData && editTaskData[0].status == status.toDoTask" value="{{status.toDoTask}}">To do</option>
-              <option [selected]="editTaskData && editTaskData[0].status == status.doingTask" value="{{status.doingTask}}">Doing</option>
-              <option [selected]="editTaskData && editTaskData[0].status == status.doneTask" value="{{status.doneTask}}">Done</option>
-            </select>
-            <span *ngIf="formErrors.status" class="form-control__errors">The field is required</span>
+              <select id="status" name="status" class="form-control" formControlName="status">
+                <option value="{{status.toDoTask}}">To do</option>
+                <option value="{{status.doingTask}}">Doing</option>
+                <option value="{{status.doneTask}}">Done</option>
+              </select>
+              <span *ngIf="formErrors.status" class="form-control__errors">The field is required</span>
           </div>
         </div>
         <div class="modal__footer">
           <button *ngIf="!editTaskData" class="btn btn__primary" type="button" [disabled]="!valForm.valid" (click)="addTask()">Add task</button>
-          <button *ngIf="editTaskData" class="btn btn__primary" type="button" (click)="changeTask(editTaskData[0].id, editTaskData[0].status)" >Change Task</button>
+          <button *ngIf="editTaskData" class="btn btn__primary" type="button" [disabled]="!valForm.valid" (click)="changeTask(editTaskData[0].id, editTaskData[0].status)" >Change Task</button>
           <button *ngIf="editTaskData" class="btn btn__danger" type="button" (click)="deleteTask(editTaskData[0].id, editTaskData[0].status)">Delete</button>
           <button class="btn btn__danger" type="button" (click)="closeModal()">Close</button>
         </div>

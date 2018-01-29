@@ -20,7 +20,7 @@ export class LocalStorageService {
     }
 
     public deleteTask (id: number, status: number): void {
-        this.allTasks[status].forEach(function (item: TasksModel, index, object) {
+        this.allTasks[status].forEach( (item: TasksModel, index, object) => {
             if (item.id === id) {
                 object.splice(index, 1);
             }
