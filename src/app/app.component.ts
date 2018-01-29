@@ -82,12 +82,12 @@ export class AppComponent implements OnInit {
   }
 
   changeTask (id: number, status: number): void {
-    if (this.valForm.valid) {
+    // if (this.valForm.valid) {
       this.valForm.value['status'] = Number(this.valForm.value['status']);
       this.localStorageService.editTask(id, status , this.valForm.value);
       this.closeModal();
       this.updateTasks();
-    }
+    // }
   }
 
   openModal (): void {
