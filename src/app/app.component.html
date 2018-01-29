@@ -55,6 +55,7 @@
             <label >Name task *
                 <input name="name" type="text" class="form-control" formControlName="name">
             </label>
+            <span *ngIf="formErrors.name" class="form-control__errors">The field is required</span>
           </div>
           <div class="form-group">
             <label>Description task
