@@ -1,20 +1,95 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-  <img width="300" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAyNTAgMjUwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAyNTAgMjUwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDojREQwMDMxO30NCgkuc3Qxe2ZpbGw6I0MzMDAyRjt9DQoJLnN0MntmaWxsOiNGRkZGRkY7fQ0KPC9zdHlsZT4NCjxnPg0KCTxwb2x5Z29uIGNsYXNzPSJzdDAiIHBvaW50cz0iMTI1LDMwIDEyNSwzMCAxMjUsMzAgMzEuOSw2My4yIDQ2LjEsMTg2LjMgMTI1LDIzMCAxMjUsMjMwIDEyNSwyMzAgMjAzLjksMTg2LjMgMjE4LjEsNjMuMiAJIi8+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMjUsMzAgMTI1LDUyLjIgMTI1LDUyLjEgMTI1LDE1My40IDEyNSwxNTMuNCAxMjUsMjMwIDEyNSwyMzAgMjAzLjksMTg2LjMgMjE4LjEsNjMuMiAxMjUsMzAgCSIvPg0KCTxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik0xMjUsNTIuMUw2Ni44LDE4Mi42aDBoMjEuN2gwbDExLjctMjkuMmg0OS40bDExLjcsMjkuMmgwaDIxLjdoMEwxMjUsNTIuMUwxMjUsNTIuMUwxMjUsNTIuMUwxMjUsNTIuMQ0KCQlMMTI1LDUyLjF6IE0xNDIsMTM1LjRIMTA4bDE3LTQwLjlMMTQyLDEzNS40eiIvPg0KPC9nPg0KPC9zdmc+DQo=">
+<div class="wrapper">
+  <div class="container">
+    <h1 class="main-title">trello</h1>
+    <div class="btn-box">
+      <button class="btn" (click)="openModal()">add new task</button>
+    </div>
+    <div class="flex">
+      <div class="col-md-4">
+        <div class="box-tasks to-do"  droppable (onDrop)="onItemDrop($event, status.toDoTask)">
+          <h4 class="box-tasks__title">To do</h4>
+          <ul class="box-tasks__list" *ngIf="allTasks && allTasks[0]">
+            <li draggable  class="task" *ngFor='let task of allTasks[0]' [dragData]="task.id+';'+task.status">
+              <span class="task__name" (click)="editTask(task.id, task.status)">{{task.name}}</span>
+              <span class="task__delete" (click)="deleteTask(task.id, task.status)"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="box-tasks doing"  droppable (onDrop)="onItemDrop($event, status.doingTask)">
+          <h4 class="box-tasks__title">Doing</h4>
+          <ul class="box-tasks__list" *ngIf="allTasks && allTasks[1]">
+            <li draggable class="task" *ngFor='let task of allTasks[1]' [dragData]="task.id+';'+task.status">
+              <span class="task__name"  (click)="editTask(task.id, task.status)">{{task.name}}</span>
+              <span class="task__delete" (click)="deleteTask(task.id, task.status)"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="box-tasks done"  droppable (onDrop)="onItemDrop($event, status.doneTask)">
+          <h4 class="box-tasks__title">Done</h4>
+          <ul class="box-tasks__list" *ngIf="allTasks && allTasks[2]">
+            <li draggable class="task" *ngFor='let task of allTasks[2]' [dragData]="task.id+';'+task.status">
+              <span class="task__name" (click)="editTask(task.id, task.status)">{{task.name}}</span>
+              <span class="task__delete" (click)="deleteTask(task.id, task.status)"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://blog.angular.io//">Angular blog</a></h2>
-  </li>
-</ul>
+<!--modal window-->
+<div class="modal" [ngClass]="{'modal-open': modalOpen}">
+  <div class="modal__dialog">
+    <div class="modal__content">
+      <div class="modal__header">
+        <h5 class="modal__header__title">Add task</h5>
+        <span class="modal__header__close" (click)="closeModal()">×</span>
+      </div>
+      <form [formGroup]="valForm">
+        <div class="modal__body">
+          <div class="form-group">
+            <label >Name task *
+              <input *ngIf="!editTaskData; else nameEdit" name="name" type="text" class="form-control" formControlName="name"  [(ngModel)]="formValue.name" >
+
+              <ng-template #nameEdit>
+                <input name="name" type="text" class="form-control" formControlName="name" [value]="editTaskData[0].name">
+              </ng-template>
+
+            </label>
+          </div>
+          <div class="form-group">
+            <label>Description task
+              <textarea *ngIf="!editTaskData; else descriptionEdit" name="description" class="form-control" rows="4" formControlName="description" [(ngModel)]="formValue.description"></textarea>
+
+              <ng-template #descriptionEdit>
+                <textarea  name="description" class="form-control" rows="4" formControlName="description" [value]="editTaskData[0].description"></textarea>
+              </ng-template>
+
+            </label>
+          </div>
+          <div class="form-group">
+            <label for="status">Status *</label>
+            <select id="status" name="status" class="form-control" formControlName="status">
+              <option [selected]="editTaskData && editTaskData[0].status == status.toDoTask" value="{{status.toDoTask}}">To do</option>
+              <option [selected]="editTaskData && editTaskData[0].status == status.doingTask" value="{{status.doingTask}}">Doing</option>
+              <option [selected]="editTaskData && editTaskData[0].status == status.doneTask" value="{{status.doneTask}}">Done</option>
+            </select>
+            <span *ngIf="formErrors.status" class="form-control__errors">The field is required</span>
+          </div>
+        </div>
+        <div class="modal__footer">
+          <button *ngIf="!editTaskData" class="btn btn__primary" type="button" [disabled]="!valForm.valid" (click)="addTask()">Add task</button>
+          <button *ngIf="editTaskData" class="btn btn__primary" type="button" (click)="changeTask(editTaskData[0].id, editTaskData[0].status)" >Change Task</button>
+          <button *ngIf="editTaskData" class="btn btn__danger" type="button" (click)="deleteTask(editTaskData[0].id, editTaskData[0].status)">Delete</button>
+          <button class="btn btn__danger" type="button" (click)="closeModal()">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 
